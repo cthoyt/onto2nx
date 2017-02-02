@@ -3,7 +3,6 @@
 
 from __future__ import print_function
 
-from .VERSION import __version__, VERSION
 
 import logging
 logging.basicConfig()
@@ -75,7 +74,6 @@ ONTOSPY_SOUNDS = _dirname + "/data/sounds/"
 # local repository constants
 ONTOSPY_LOCAL = os.path.join(os.path.expanduser('~'), '.ontospy')
 ONTOSPY_LOCAL_VIZ = ONTOSPY_LOCAL + "/viz"
-ONTOSPY_LOCAL_CACHE = ONTOSPY_LOCAL + "/.cache/" + VERSION
 
 ONTOSPY_LIBRARY_DEFAULT = ONTOSPY_LOCAL + "/models/"
 
