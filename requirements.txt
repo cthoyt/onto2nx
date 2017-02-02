@@ -6,5 +6,4 @@ colorama
 requests
 pyfiglet
 click
-colorama
 pygments

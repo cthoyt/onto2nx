@@ -27,6 +27,13 @@ CLASSIFIERS = [
 INSTALL_REQUIRES = [
     'networkx',
     'rdflib',
+    'rdflib-jsonld',
+    'SPARQLWrapper',
+    'colorama',
+    'requests',
+    'pyfiglet',
+    'click',
+    'pygments',
 ]
 EXTRAS_REQUIRE = {}
 TESTS_REQUIRE = [
