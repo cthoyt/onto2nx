@@ -9,7 +9,7 @@ __title__ = 'onto2nx'
 __description__ = "A package for parsing ontologies into NetworkX graphs"
 __url__ = 'https://github.com/cthoyt/onto2nx'
 
-__author__ = 'Charles Tapley Hoyt'
+__author__ = 'Charles Tapley Hoyt, Aliaksandr Masny'
 __email__ = 'charles.hoyt@scai.fraunhofer.de'
 
 __license__ = 'GPL 3.0 License'
