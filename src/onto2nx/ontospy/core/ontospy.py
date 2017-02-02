@@ -16,18 +16,11 @@ More info in the README file.
 
 from __future__ import print_function
 
-import sys, os, time, optparse
-
 try:
     import urllib2
 except ImportError:
     import urllib.request as urllib2
 
-import rdflib
-from rdflib.plugins.stores.sparqlstore import SPARQLStore
-
-
-from .utils import *
 from .loader import RDFLoader
 from .entities import *
 from .queryHelper import QueryHelper
