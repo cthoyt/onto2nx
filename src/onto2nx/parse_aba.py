@@ -18,7 +18,7 @@ def aba_onto2nx(str_gr_id=10):
     netw = nx.DiGraph()
 
     # Downloading and parsing json structure graph
-    r = requests.get(url=ABA_API_FORMAT.format(str_graph_id))
+    r = requests.get(url=ABA_API_FORMAT.format(str_gr_id))
     str_gr_json = r.json()
 
     def add_children(tree, netw):
