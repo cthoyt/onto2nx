@@ -4,8 +4,14 @@ import networkx as nx
 ABA_API_FORMAT = 'http://api.brain-map.org/api/v2/structure_graph_download/{}.json'
 
 
-def aba_onto2nx(str_gr_id=10):
+def parser(str_gr_id=10):
     """ Downloads and parse the Allen Brain Atlas ontologies into a network object
+
+    StructureGraphs ID corresponds to the following ontologies:
+    1 – "Mouse Brain Atlas",
+    10 – "Human Brain Atlas", 8 – "Non-Human Primate Brain Atlas",
+    15 – "Glioblastoma",
+    16 – "Developing Human Brain Atlas", 17 – "Developing Mouse Brain Atlas".
 
     More information about Allen Brain Atlas API can be found using following links:
     http://help.brain-map.org/display/api/Atlas+Drawings+and+Ontologies#AtlasDrawingsandOntologies-StructuresAndOntologies
