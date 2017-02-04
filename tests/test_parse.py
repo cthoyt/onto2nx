@@ -2,6 +2,9 @@ import unittest
 
 from onto2nx.ontospy import Ontospy
 
+from onto2nx import parse_aba
+import networkx as nx
+
 
 class TestImport(unittest.TestCase):
     def test_wine(self):
@@ -39,3 +42,14 @@ class TestImport(unittest.TestCase):
         self.assertEquals(len(o.datatypeProperties), 0)
         self.assertEquals(len(o.skosConcepts), 0)
         self.assertEquals(len(o.rdfgraph), 10836)
+
+
+class TestAllenParser(unittest.TestCase):
+    def test_aba_human(self):
+        aba_human = parse_aba.parser(str_gr_id=10)
+
+        # check if ontology is a tree
+        # if not, then something is wrong with the id
+        self.assertTrue(nx.is_tree(aba_human))
+        # check if root is the brain with id = 4005
+        self.assertEquals(nx.topological_sort(aba_human)[0], 4005)
