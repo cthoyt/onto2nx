@@ -51,5 +51,14 @@ class TestAllenParser(unittest.TestCase):
         # check if ontology is a tree
         # if not, then something is wrong with the id
         self.assertTrue(nx.is_tree(aba_human))
-        # check if root is the brain with id = 4005
+        # check if root is the (human) brain with id = 4005
         self.assertEquals(nx.topological_sort(aba_human)[0], 4005)
+
+    def test_aba_mouse(self):
+        aba_mouse = parse_aba.parser(str_gr_id=1)
+
+        # check if ontology is a tree
+        # if not, then something is wrong with the id
+        self.assertTrue(nx.is_tree(aba_mouse))
+        # check if root is the (mouse) brain with id = 997
+        self.assertEquals(nx.topological_sort(aba_mouse)[0], 997)
