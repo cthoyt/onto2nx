@@ -14,7 +14,7 @@ More info in the README file.
 
 """
 
-from __future__ import print_function
+from __future__ import print_function, unicode_literals
 
 try:
     import urllib2
@@ -263,7 +263,7 @@ class Ontospy(object):  # Graph
 
             # attach to an ontology
             for uri in aClass.getValuesForProperty(rdflib.RDFS.isDefinedBy):
-                onto = self.getOntology(str(uri))
+                onto = self.getOntology(uri)
                 if onto:
                     onto.classes += [aClass]
                     aClass.ontology = onto

@@ -6,6 +6,7 @@ python:
 - '3.6'
 env:
 - TOXENV=manifest
+- TOXENV=docs
 matrix:
     include:
         - python: "2.7"

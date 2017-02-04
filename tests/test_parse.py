@@ -1,5 +1,7 @@
 import unittest
+
 from onto2nx.ontospy import Ontospy
+
 
 class TestImport(unittest.TestCase):
     def test_wine(self):
