@@ -3,7 +3,7 @@ onto2nx is a package for parsing ontologies in the OWL and OBO format into Netwo
 for easy traversal of entity hierarchies
 """
 
-__version__ = '0.1.0'
+__version__ = '0.1.1-dev'
 
 __title__ = 'onto2nx'
 __description__ = "A package for parsing ontologies into NetworkX graphs"
