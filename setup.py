@@ -28,11 +28,13 @@ INSTALL_REQUIRES = [
     'SPARQLWrapper',
     'colorama',
     'requests',
-    'pyfiglet',
     'click',
-    'pygments',
 ]
-EXTRAS_REQUIRE = {}
+EXTRAS_REQUIRE = {
+    'nx2onto': [
+        'owlready'
+    ]
+}
 TESTS_REQUIRE = [
     'tox',
     'mock'
