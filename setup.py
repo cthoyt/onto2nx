@@ -26,6 +26,7 @@ INSTALL_REQUIRES = [
     'rdflib',
     'rdflib-jsonld',
     'requests',
+    'SPARQLWrapper',
     'click',
 ]
 EXTRAS_REQUIRE = {
