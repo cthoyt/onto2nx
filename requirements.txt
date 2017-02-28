@@ -1,8 +1,6 @@
 networkx
 rdflib
 rdflib-jsonld
-SPARQLWrapper
-colorama
 requests
 click
 owlready[nx2onto]

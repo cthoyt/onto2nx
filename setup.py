@@ -25,8 +25,6 @@ INSTALL_REQUIRES = [
     'networkx',
     'rdflib',
     'rdflib-jsonld',
-    'SPARQLWrapper',
-    'colorama',
     'requests',
     'click',
 ]
