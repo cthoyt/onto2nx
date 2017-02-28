@@ -23,7 +23,6 @@ try:
 except NameError:
     pass
 
-from colorama import Fore, Style
 
 
 from .core.ontospy import Ontospy
