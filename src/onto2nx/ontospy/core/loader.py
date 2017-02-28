@@ -9,19 +9,13 @@ Copyright (c) 2013-2016 __Michele Pasin__ <http://www.michelepasin.org>. All rig
 """
 
 from __future__ import print_function
-import sys, os, time, optparse
+
 try:
     import urllib2
 except ImportError:
     import urllib.request as urllib2
 
-import click
-import rdflib
-from rdflib.plugins.stores.sparqlstore import SPARQLStore
-
-
 from .utils import *
-
 
 
 class RDFLoader(object):
@@ -46,27 +40,27 @@ class RDFLoader(object):
 
     def __init__(self, rdfgraph=None):
         super(RDFLoader, self).__init__()
-        
+
         self.rdfgraph = rdfgraph or rdflib.Graph()
         self.sources_valid = []
         self.sources_invalid = []
 
     def load(self, uri_or_path=None, text=None, file_obj=None, rdf_format="", verbose=False):
-        
+
         if not rdf_format:
             self.rdf_format_opts = ['xml', 'turtle', 'n3', 'nt', 'trix', 'rdfa']
         else:
             self.rdf_format_opts = [rdf_format]
-       
+
         # URI OR PATH
         if uri_or_path:
-            if not type(uri_or_path) in [list,tuple]:
+            if not type(uri_or_path) in [list, tuple]:
                 uri_or_path = [uri_or_path]
             for candidate in uri_or_path:
                 if os.path.isdir(candidate):
                     # inner loop in case it's a folder
-                    temp = get_files_with_extensions(candidate, ["ttl", "rdf", "owl", 
-                        "trix", "rdfa", "n3", "nq", "jsonld"])
+                    temp = get_files_with_extensions(candidate, ["ttl", "rdf", "owl",
+                                                                 "trix", "rdfa", "n3", "nq", "jsonld"])
                 else:
                     # fake a one-element list
                     temp = [candidate]
@@ -78,7 +72,7 @@ class RDFLoader(object):
 
         # TEXT STRING
         elif text:
-            if not type(text) in [list,tuple]:
+            if not type(text) in [list, tuple]:
                 text = [text]
             for each in text:
                 self.load_text(each, verbose)
@@ -86,7 +80,7 @@ class RDFLoader(object):
 
         # FILE OBJECT
         elif file_obj:
-            if not type(file_obj) in [list,tuple]:
+            if not type(file_obj) in [list, tuple]:
                 file_obj = [file_obj]
             for each in file_obj:
                 self.load_file(each, verbose)
@@ -95,24 +89,19 @@ class RDFLoader(object):
         else:
             raise Exception("You must specify where to load RDF from.")
 
-    
-
         if verbose: self.print_summary()
 
         return self.rdfgraph
-        
-
-
 
     def print_summary(self):
         """
         print out stats about loading operation
         """
         if self.sources_valid:
-            printDebug("----------\nLoaded %d triples.\n----------" % 
-                len(self.rdfgraph), fg='green')
+            printDebug("----------\nLoaded %d triples.\n----------" %
+                       len(self.rdfgraph), fg='green')
             printDebug("RDF sources loaded successfully: %d of %d.\n----------" %
-                (len(self.sources_valid), len(self.sources_valid) + len(self.sources_invalid)), fg='green')
+                       (len(self.sources_valid), len(self.sources_valid) + len(self.sources_invalid)), fg='green')
             for s in self.sources_valid:
                 printDebug("-> " + s, fg='green')
         else:
@@ -120,11 +109,9 @@ class RDFLoader(object):
 
         if self.sources_invalid:
             printDebug("----------\nRDF sources failed to load: %d.\n----------" %
-                (len(self.sources_invalid)), fg='red')
+                       (len(self.sources_invalid)), fg='red')
             for s in self.sources_invalid:
-                printDebug("-> " + s, fg="red")        
-
-
+                printDebug("-> " + s, fg="red")
 
     def load_uri(self, uri, verbose):
         """
@@ -152,8 +139,6 @@ class RDFLoader(object):
         if not success == True:
             self.loading_failed(self.rdf_format_opts)
             self.sources_invalid += [uri]
-      
-                
 
     def load_text(self, text, verbose):
         """
@@ -181,10 +166,7 @@ class RDFLoader(object):
             self.loading_failed(self.rdf_format_opts)
             self.sources_invalid += ["Text: '%s ...'" % text[:10]]
 
-
-
-
-    def load_file(file_obj, verbose):
+    def load_file(self, file_obj, verbose):
         """
         The type of open file objects such as sys.stdout; alias of the built-in file.
         @TODO: when is this used? 
@@ -199,10 +181,6 @@ class RDFLoader(object):
             self.loading_failed(self.rdf_format_opts)
             self.sources_invalid += [file_obj.NAME]
 
-
-
-
-
     def resolve_redirects_if_needed(self, uri):
         """
         substitute with final uri after 303 redirects (if it's a www location!)
@@ -210,7 +188,7 @@ class RDFLoader(object):
         :return:
         """
         if type(uri) == type("string") or type(uri) == type(u"unicode"):
-            
+
             if uri.startswith("www."):  # support for lazy people
                 uri = "http://%s" % str(uri)
             if uri.startswith("http://"):
@@ -219,26 +197,21 @@ class RDFLoader(object):
                 req = urllib2.Request(uri, headers=headers)
                 res = urllib2.urlopen(req)
                 uri = res.geturl()
-        
+
         else:
             raise Exception("A URI must be in string format.")
-        
+
         return uri
-
-
-
 
     def loading_failed(self, rdf_format_opts):
         """default message if we need to abort loading"""
         printDebug(
-            "----------\nFatal error parsing graph (tried using RDF serialization: %s)\n" % (str(rdf_format_opts)), "red")
+            "----------\nFatal error parsing graph (tried using RDF serialization: %s)\n" % (str(rdf_format_opts)),
+            "red")
         printDebug(
             "----------\nTIP: You can try one of the following RDF validation services\n<http://mowl-power.cs.man.ac.uk:8080/validator/validate>\n<http://www.ivan-herman.net/Misc/2008/owlrl/>")
 
         return
-
-
-
 
 
 ##
@@ -253,11 +226,9 @@ class RDFLoader(object):
 def test(uri_or_path, noverbose, trylist):
     l = RDFLoader()
     if trylist or not uri_or_path:
-        l.load(["http://purl.org/dc/terms/", "http://xmlns.com/foaf/spec/"], verbose=not(noverbose))
+        l.load(["http://purl.org/dc/terms/", "http://xmlns.com/foaf/spec/"], verbose=not (noverbose))
     else:
-        l.load(uri_or_path, verbose=not(noverbose))
-
-
+        l.load(uri_or_path, verbose=not (noverbose))
 
 
 if __name__ == '__main__':
@@ -266,5 +237,3 @@ if __name__ == '__main__':
     """
     test()
     printDebug("Finished")
-
-

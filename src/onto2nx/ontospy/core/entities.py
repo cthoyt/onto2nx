@@ -3,13 +3,7 @@
 
 from __future__ import print_function
 
-import rdflib
 from itertools import count
-# http://stackoverflow.com/questions/8628123/counting-instances-of-a-class
-from colorama import Fore, Back, Style
-
-
-
 
 from .utils import *
 
@@ -33,16 +27,16 @@ class RDF_Entity(object):
     def __repr__(self):
         return "<OntoSpy: RDF_Entity object for uri *%s*>" % (self.uri)
 
-    def __init__(self, uri, rdftype=None, namespaces = None):
+    def __init__(self, uri, rdftype=None, namespaces=None):
         """
         Init ontology object. Load the graph in memory, then setup all necessary attributes.
         """
         self.id = next(self._ids)
 
-        self.uri = uri # rdflib.Uriref
+        self.uri = uri  # rdflib.Uriref
         self.qname = self.__buildQname(namespaces)
-        self.locale	 = inferURILocalSymbol(self.uri)[0]
-        self.slug	 = None
+        self.locale = inferURILocalSymbol(self.uri)[0]
+        self.slug = None
         self.rdftype = rdftype
         self.triples = None
         self.rdfgraph = rdflib.Graph()
@@ -64,13 +58,6 @@ class RDF_Entity(object):
     def printSerialize(self, format="turtle"):
         printDebug("\n" + self.serialize(format))
 
-    def printTriples(self):
-        """ display triples """
-        printDebug(Style.BRIGHT + self.uri + Style.RESET_ALL)
-        for x in self.triples:
-            printDebug(Fore.MAGENTA + "=> " + unicode(x[1]))
-            printDebug(Fore.GREEN + ".... " + unicode(x[2]) + Fore.RESET)
-        print("")
 
     def __buildQname(self, namespaces):
         """ extracts a qualified name for a uri """
@@ -96,7 +83,7 @@ class RDF_Entity(object):
         if cl.parents():
             bag = []
             for x in cl.parents():
-                if x.uri != cl.uri: # avoid circular relationships
+                if x.uri != cl.uri:  # avoid circular relationships
                     bag += [x] + self.ancestors(x, noduplicates)
                 else:
                     bag += [x]
@@ -108,7 +95,6 @@ class RDF_Entity(object):
         else:
             return []
 
-
     def descendants(self, cl=None, noduplicates=True):
         """ returns all descendants in the taxonomy """
         if not cl:
@@ -116,7 +102,7 @@ class RDF_Entity(object):
         if cl.children():
             bag = []
             for x in cl.children():
-                if x.uri != cl.uri: # avoid circular relationships
+                if x.uri != cl.uri:  # avoid circular relationships
                     bag += [x] + self.descendants(x, noduplicates)
                 else:
                     bag += [x]
@@ -127,7 +113,6 @@ class RDF_Entity(object):
                 return bag
         else:
             return []
-
 
     def parents(self):
         """wrapper around property"""
@@ -146,7 +131,6 @@ class RDF_Entity(object):
              rdflib.term.URIRef(u'http://www.w3.org/2000/01/rdf-schema#Class')]
         """
         return list(self.rdfgraph.objects(None, aPropURIRef))
-
 
     def bestLabel(self, prefLanguage="en", qname_allowed=True, quotes=True):
         """
@@ -180,14 +164,14 @@ class RDF_Entity(object):
         ..This checks RFDS.label, SKOS.prefLabel and finally the qname local component
         """
 
-        test_preds = [rdflib.RDFS.comment, rdflib.namespace.DCTERMS.description, rdflib.namespace.DC.description, rdflib.namespace.SKOS.definition ]
+        test_preds = [rdflib.RDFS.comment, rdflib.namespace.DCTERMS.description, rdflib.namespace.DC.description,
+                      rdflib.namespace.SKOS.definition]
 
         for pred in test_preds:
             test = self.getValuesForProperty(pred)
             if test:
                 return addQuotes(firstEnglishStringInList(test))
         return ""
-
 
 
 class Ontology(RDF_Entity):
@@ -197,7 +181,6 @@ class Ontology(RDF_Entity):
 
     def __repr__(self):
         return "<OntoSpy: Ontology object for uri *%s*>" % (self.uri)
-
 
     def __init__(self, uri, rdftype=None, namespaces=None, prefPrefix=""):
         """
@@ -217,7 +200,8 @@ class Ontology(RDF_Entity):
         By default resources URIs are transformed into qnames
         """
         if qname:
-            return sorted([(uri2niceString(x, self.namespaces)), (uri2niceString(y, self.namespaces)), z] for x, y, z in self.triples)
+            return sorted([(uri2niceString(x, self.namespaces)), (uri2niceString(y, self.namespaces)), z] for x, y, z in
+                          self.triples)
         else:
             return sorted(self.triples)
 
@@ -227,13 +211,10 @@ class Ontology(RDF_Entity):
         self.printTriples()
         self.stats()
 
-
     def stats(self):
         """ shotcut to pull out useful info for interactive use """
         printDebug("Classes.....: %d" % len(self.classes))
         printDebug("Properties..: %d" % len(self.properties))
-
-
 
 
 class OntoClass(RDF_Entity):
@@ -257,16 +238,16 @@ class OntoClass(RDF_Entity):
         """
         super(OntoClass, self).__init__(uri, rdftype, namespaces)
         self.slug = "class-" + slugify(self.qname)
-        
+
         self.domain_of = []
         self.range_of = []
         self.domain_of_inferred = []
         self.range_of_inferred = []
         self.ontology = None
-        self.queryHelper = None	 # the original graph the class derives from
+        self.queryHelper = None  # the original graph the class derives from
 
     def __repr__(self):
-        return "<Class *%s*>" % ( self.uri)
+        return "<Class *%s*>" % (self.uri)
 
     def instances(self):  # = all instances
         return self.all()
@@ -284,7 +265,6 @@ class OntoClass(RDF_Entity):
         else:
             return 0
 
-
     def printStats(self):
         """ shotcut to pull out useful info for interactive use """
         printDebug("----------------")
@@ -297,17 +277,11 @@ class OntoClass(RDF_Entity):
         printDebug("Instances....: %d" % self.count())
         printDebug("----------------")
 
-    def printGenericTree(self):
-        printGenericTree(self)
-
     def describe(self):
         """ shotcut to pull out useful info for interactive use """
         self.printTriples()
         self.printStats()
         # self.printGenericTree()
-
-
-
 
 
 class OntoProperty(RDF_Entity):
@@ -336,12 +310,7 @@ class OntoProperty(RDF_Entity):
         self.ontology = None
 
     def __repr__(self):
-        return "<Property *%s*>" % ( self.uri)
-
-
-    def printGenericTree(self):
-        printGenericTree(self)
-
+        return "<Property *%s*>" % (self.uri)
 
     def printStats(self):
         """ shotcut to pull out useful info for interactive use """
@@ -354,16 +323,11 @@ class OntoProperty(RDF_Entity):
         printDebug("Has Range....: %d" % len(self.ranges))
         printDebug("----------------")
 
-
     def describe(self):
         """ shotcut to pull out useful info for interactive use """
         self.printTriples()
         self.printStats()
         # self.printGenericTree()
-
-
-
-
 
 
 class OntoSKOSConcept(RDF_Entity):
@@ -381,12 +345,10 @@ class OntoSKOSConcept(RDF_Entity):
         self.slug = "concept-" + slugify(self.qname)
         self.instance_of = []
         self.ontology = None
-        self.queryHelper = None	 # the original graph the class derives from
+        self.queryHelper = None  # the original graph the class derives from
 
     def __repr__(self):
-        return "<SKOS Concept *%s*>" % ( self.uri)
-
-
+        return "<SKOS Concept *%s*>" % (self.uri)
 
     def printStats(self):
         """ shotcut to pull out useful info for interactive use """
@@ -397,28 +359,8 @@ class OntoSKOSConcept(RDF_Entity):
         printDebug("Descendants..: %d" % len(self.descendants()))
         printDebug("----------------")
 
-    def printGenericTree(self):
-        printGenericTree(self)
-
     def describe(self):
         """ shotcut to pull out useful info for interactive use """
         self.printTriples()
         self.printStats()
         self.printGenericTree()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

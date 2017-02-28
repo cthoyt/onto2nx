@@ -75,7 +75,7 @@ ONTOSPY_LOCAL_VIZ = ONTOSPY_LOCAL + "/viz"
 
 ONTOSPY_LIBRARY_DEFAULT = ONTOSPY_LOCAL + "/models/"
 
-
+ONTOSPY_LOCAL_CACHE = ONTOSPY_LOCAL + "/.cache/" + 'v1'
 
 BOOTSTRAP_ONTOLOGIES = [
 	"http://xmlns.com/foaf/spec/" ,

@@ -2,7 +2,6 @@
 #  -*- coding: UTF-8 -*-
 
 from .. import *
-from colorama import Fore, Style
 
 
 # ===========
@@ -109,7 +108,7 @@ def get_pickled_ontology(filename):
 		try:
 			return cPickle.load(open(pickledfile, "rb"))
 		except:
-			print(Style.DIM + "** WARNING: Cache is out of date ** ...recreating it... " + Style.RESET_ALL)
+			print("** WARNING: Cache is out of date ** ...recreating it... ")
 			return None
 	else:
 		return None
@@ -153,16 +152,16 @@ def do_pickle_ontology(filename, g=None):
 			cPickle.dump(g, open(pickledpath, "wb"))
 			# print Style.DIM + ".. cached <%s>" % pickledpath + Style.RESET_ALL
 		except Exception as e:
-			print(Style.DIM + "\n.. Failed caching <%s>" % filename + Style.RESET_ALL)
+			print("\n.. Failed caching <%s>" % filename )
 			print(str(e))
-			print(Style.DIM + "\n... attempting to increase the recursion limit from %d to %d" % (sys.getrecursionlimit(), sys.getrecursionlimit()*10) + Style.RESET_ALL)
+			print("\n... attempting to increase the recursion limit from %d to %d" % (sys.getrecursionlimit(), sys.getrecursionlimit()*10))
 
 		try:
 			sys.setrecursionlimit(sys.getrecursionlimit()*10)
 			cPickle.dump(g, open(pickledpath, "wb"))
 			# print(Fore.GREEN + "Cached <%s>" % pickledpath + "..." + Style.RESET_ALL)
 		except Exception as e:
-			print(Style.BRIGHT + "\n... Failed caching <%s>... aborting..." % filename + Style.RESET_ALL)
+			print("\n... Failed caching <%s>... aborting..." % filename )
 			print(str(e))
 		sys.setrecursionlimit(int(sys.getrecursionlimit()/10))
 	return g
