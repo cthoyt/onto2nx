@@ -4,18 +4,17 @@ from xml.etree import ElementTree as ET
 
 import networkx as nx
 
-try:
-    from urlparse import urldefrag
-except ImportError:
-    from urllib.parse import urldefrag
-
-owl_ns = {
-    'owl': 'http://www.w3.org/2002/07/owl#',
-    'dc': 'http://purl.org/dc/elements/1.1'
-}
+__all__ = [
+    'parse_owl',
+    'OWLParser'
+]
 
 IRI = 'IRI'
 AIRI = 'abbreviatedIRI'
+OWL_NAMESPACES = {
+    'owl': 'http://www.w3.org/2002/07/owl#',
+    'dc': 'http://purl.org/dc/elements/1.1'
+}
 
 
 def parse_owl(iri):
@@ -30,16 +29,17 @@ def parse_owl(iri):
 
 
 class OWLParser(nx.DiGraph):
-    def __init__(self, content=None, file=None, *attrs, **kwargs):
-        """Builds a model of an OWL ontology in OWL/XML document using a NetworkX graph
+    """A model of an OWL ontology in OWL/XML document using a NetworkX graph"""
 
+    def __init__(self, content=None, file=None, **kwargs):
+        """
         :param content: The content of an XML file as a string
         :type content: str
         :param file: input OWL file path or file-like object
         :type file: file or str
         """
 
-        nx.DiGraph.__init__(self, *attrs, **kwargs)
+        nx.DiGraph.__init__(self, **kwargs)
 
         if file is not None:
             self.tree = ET.parse(file)
@@ -51,13 +51,13 @@ class OWLParser(nx.DiGraph):
         self.root = self.tree.getroot()
         self.graph['IRI'] = self.root.attrib['ontologyIRI']
 
-        for el in self.root.findall('./owl:Declaration/owl:Class', owl_ns):
+        for el in self.root.findall('./owl:Declaration/owl:Class', OWL_NAMESPACES):
             self.add_node(self.get_iri(el.attrib), type="Class")
 
-        for el in self.root.findall('./owl:Declaration/owl:NamedIndividual', owl_ns):
+        for el in self.root.findall('./owl:Declaration/owl:NamedIndividual', OWL_NAMESPACES):
             self.add_node(self.get_iri(el.attrib), type="NamedIndividual")
 
-        for el in self.root.findall('./owl:SubClassOf', owl_ns):
+        for el in self.root.findall('./owl:SubClassOf', OWL_NAMESPACES):
             if len(el) != 2:
                 raise ValueError('something weird with SubClassOf: {} {}'.format(el, el.attrib))
 
@@ -72,13 +72,13 @@ class OWLParser(nx.DiGraph):
                 relation = self.get_iri(object_property.attrib)
                 self.add_edge(child, parent, type=relation)
 
-        for el in self.root.findall('./owl:ClassAssertion', owl_ns):
-            a = el.find('./owl:Class', owl_ns)
+        for el in self.root.findall('./owl:ClassAssertion', OWL_NAMESPACES):
+            a = el.find('./owl:Class', OWL_NAMESPACES)
             if not self.has_iri(a.attrib):
                 continue
             a = self.get_iri(a.attrib)
 
-            b = el.find('./owl:NamedIndividual', owl_ns)
+            b = el.find('./owl:NamedIndividual', OWL_NAMESPACES)
             if not self.has_iri(b.attrib):
                 continue
             b = self.get_iri(b.attrib)

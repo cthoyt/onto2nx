@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 onto2nx is a package for parsing ontologies in the OWL and OBO format into NetworkX graphs
 for easy traversal of entity hierarchies
