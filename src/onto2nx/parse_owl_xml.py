@@ -33,13 +33,11 @@ class OWLParser(nx.DiGraph):
 
     def __init__(self, content=None, file=None, **kwargs):
         """
-        :param content: The content of an XML file as a string
-        :type content: str
+        :param str content: The content of an XML file as a string
         :param file: input OWL file path or file-like object
         :type file: file or str
         """
-
-        nx.DiGraph.__init__(self, **kwargs)
+        super(OWLParser, self).__init__(**kwargs)
 
         if file is not None:
             self.tree = ET.parse(file)
