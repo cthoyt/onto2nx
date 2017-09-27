@@ -47,7 +47,8 @@ class OWLParser(nx.DiGraph):
             raise ValueError('Missing data source (file/content)')
 
         self.root = self.tree.getroot()
-        self.graph['IRI'] = self.root.attrib['ontologyIRI']
+
+        self.graph['IRI'] = self.root.attrib.get('ontologyIRI')
 
         for el in self.root.findall('./owl:Declaration/owl:Class', OWL_NAMESPACES):
             self.add_node(self.get_iri(el.attrib), type="Class")
