@@ -2,17 +2,18 @@ sudo: false
 cache: pip
 language: python
 python:
-- '2.7'
-- '3.6'
+- 2.7
+- 3.6
 env:
-- TOXENV=manifest
-- TOXENV=docs
+- TOXENV=py
 matrix:
     include:
-        - python: "2.7"
-          env: TOXENV=py27
-        - python: "3.6"
-          env: TOXENV=py36
+        - python: 3.6
+          env: TOXENV=docs
+        - python: 3.6
+          env: TOXENV=manifest
+        - python: 3.6
+          env: TOXENV=rst-lint
 install:
 - pip install tox
 script:
