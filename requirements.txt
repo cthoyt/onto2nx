@@ -2,6 +2,7 @@ networkx==1.11
 rdflib
 rdflib-jsonld
 requests
+requests_file
 SPARQLWrapper
 click
 owlready[nx2onto]

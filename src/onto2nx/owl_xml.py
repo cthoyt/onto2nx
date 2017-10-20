@@ -5,8 +5,10 @@
 from xml.etree import ElementTree as ET
 
 import networkx as nx
+from .utils import download
 
 __all__ = [
+    'parse_owl_xml',
     'OWLParser',
 ]
 
@@ -17,6 +19,18 @@ OWL_NAMESPACES = {
     'owl': 'http://www.w3.org/2002/07/owl#',
     'dc': 'http://purl.org/dc/elements/1.1'
 }
+
+
+def parse_owl_xml(url):
+    """Downloads and parses an OWL resource in OWL/XML format using the :class:`OWLParser`.
+
+    :param str url: The URL to the OWL resource
+    :return: A directional graph representing the OWL document's hierarchy
+    :rtype: networkx.DiGraph
+    """
+    res = download(url)
+    owl = OWLParser(content=res.content)
+    return owl
 
 
 class OWLParser(nx.DiGraph):
