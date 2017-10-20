@@ -1,7 +1,8 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# onto2nx documentation build configuration file, created by
-# sphinx-quickstart on Wed Feb  1 15:56:01 2017.
+# Onto2nx documentation build configuration file, created by
+# sphinx-quickstart on Fri Oct 20 09:28:38 2017.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -16,9 +17,9 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
+sys.path.insert(0, os.path.abspath('../../src'))
 
 
 # -- General configuration ------------------------------------------------
@@ -30,12 +31,11 @@
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
-    'sphinx.ext.autodoc',
+extensions = ['sphinx.ext.autodoc',
+    'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.coverage',
-    'sphinx.ext.viewcode'
-]
+    'sphinx.ext.viewcode']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -50,16 +50,16 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'onto2nx'
-copyright = u'2017, Charles Tapley Hoyt'
-author = u'Charles Tapley Hoyt'
+project = 'Onto2nx'
+copyright = '2017, Charles Tapley Hoyt'
+author = 'Charles Tapley Hoyt'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = '0.1.0'
+version = '0.1.1-dev'
 # The full version, including alpha/beta/rc tags.
 release = '0.1.1-dev'
 
@@ -81,12 +81,13 @@ pygments_style = 'sphinx'
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
 
+
 # -- Options for HTML output ----------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -97,12 +98,29 @@ html_theme = 'alabaster'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = []
+#html_static_path = ['_static']
+
+# Custom sidebar templates, must be a dictionary that maps document names
+# to template names.
+#
+# This is required for the alabaster theme
+# refs: http://alabaster.readthedocs.io/en/latest/installation.html#sidebars
+html_sidebars = {
+    '**': [
+        'about.html',
+        'navigation.html',
+        'relations.html',  # needs 'show_related': True theme option to display
+        'searchbox.html',
+        'donate.html',
+    ]
+}
+
 
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'onto2nxdoc'
+htmlhelp_basename = 'Onto2nxdoc'
+
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -128,17 +146,20 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'onto2nx.tex', u'onto2nx Documentation', u'Charles Tapley Hoyt', 'manual'),
+    (master_doc, 'Onto2nx.tex', 'Onto2nx Documentation',
+     'Charles Tapley Hoyt', 'manual'),
 ]
+
 
 # -- Options for manual page output ---------------------------------------
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'onto2nx', u'onto2nx Documentation',
+    (master_doc, 'onto2nx', 'Onto2nx Documentation',
      [author], 1)
 ]
+
 
 # -- Options for Texinfo output -------------------------------------------
 
@@ -146,9 +167,13 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'onto2nx', u'onto2nx Documentation', author, 'onto2nx', 'One line description of project.',
+    (master_doc, 'Onto2nx', 'Onto2nx Documentation',
+     author, 'Onto2nx', 'One line description of project.',
      'Miscellaneous'),
 ]
+
+
+
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/': None}

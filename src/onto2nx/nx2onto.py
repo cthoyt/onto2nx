@@ -1,17 +1,17 @@
+# -*- coding: utf-8 -*-
+
 import types
 
 import owlready
 
 
 def nx_to_ontology(graph, source_node, output_path, base_iri):
-    """
-    Graph nodes are ID's, and have a 'label' in the node data with the right label
+    """Graph nodes are ID's, and have a 'label' in the node data with the right label
 
     :param graph:
     :param source_node:
-    :param output_path:
+    :param str output_path:
     :param base_iri:
-    :return:
     """
     ontology = owlready.Ontology(base_iri)
 

@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
 
+"""This module contains tools for parsing OWL/RDF"""
+
 import networkx as nx
 from requests.compat import urldefrag
 
 from .ontospy import Ontospy
 
 __all__ = [
-    'parse_owl_rdf'
+    'parse_owl_rdf',
 ]
 
 
 def parse_owl_rdf(iri):
-    """
+    """Parses an OWL resource that's encoded in OWL/RDF into a NetworkX directional graph
     
-    :param iri: 
+    :param str iri: The location of the OWL resource to be parsed by Ontospy
     :type iri: str
-    :return:
     :rtype: network.DiGraph
     """
     g = nx.DiGraph(IRI=iri)

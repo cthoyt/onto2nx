@@ -1,31 +1,22 @@
 # -*- coding: utf-8 -*-
 
+"""This module contains tools for parsing OWL/XML"""
+
 from xml.etree import ElementTree as ET
 
 import networkx as nx
 
 __all__ = [
-    'parse_owl',
-    'OWLParser'
+    'OWLParser',
 ]
 
 IRI = 'IRI'
 AIRI = 'abbreviatedIRI'
+
 OWL_NAMESPACES = {
     'owl': 'http://www.w3.org/2002/07/owl#',
     'dc': 'http://purl.org/dc/elements/1.1'
 }
-
-
-def parse_owl(iri):
-    """Downloads and parses the ontology at a given IRI into a network object
-
-    :param iri:
-    :type iri: str
-    :return: a networkx with the classes and individuals as nodes, and the subclass/instanceof relationships as edges
-    :rtype: :class:`networkx.DiGraph`
-    """
-    return nx.DiGraph(iri=iri)
 
 
 class OWLParser(nx.DiGraph):

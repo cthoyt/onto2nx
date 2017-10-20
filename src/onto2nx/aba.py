@@ -1,5 +1,13 @@
+# -*- coding: utf-8 -*-
+
+"""This module contains tools for parsing data from the Allen Brain Atlas"""
+
 import requests
 import networkx as nx
+
+__all__ = [
+    'aba_onto2nx',
+]
 
 ABA_API_FORMAT = 'http://api.brain-map.org/api/v2/structure_graph_download/{}.json'
 
