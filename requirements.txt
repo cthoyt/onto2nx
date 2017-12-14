@@ -1,6 +1,6 @@
 networkx==1.11
-rdflib
-rdflib-jsonld
+rdflib==4.2.1
+rdflib-jsonld==0.4.0
 requests
 requests_file
 SPARQLWrapper
