@@ -1,0 +1,17 @@
+[run]
+branch = True
+source = onto2nx
+omit =
+    tests/*
+    docs/*
+
+[paths]
+source =
+    src/onto2nx
+    .tox/*/lib/python*/site-packages/onto2nx
+
+[report]
+show_missing = True
+exclude_lines =
+    def __str__
+    def __repr__

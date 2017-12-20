@@ -1,6 +1,11 @@
+# -*- coding: utf-8 -*-
+
 import requests
 from requests_file import FileAdapter
 from requests.compat import urlparse
+import logging
+
+log = logging.getLogger(__name__)
 
 
 def download(url):
@@ -24,4 +29,7 @@ def get_uri_name(url):
     url_parsed = urlparse(url)
 
     url_parts = url_parsed.path.split('/')
+
+    log.info('url parts: %s', url_parts)
+
     return url_parts[-1]

@@ -71,6 +71,7 @@ def parse_owl_xml_resolver(iri):
 
 def parse_owl_rdf_resolver(iri):
     path = os.path.join(owl_dir_path, get_uri_name(iri))
+
     o = Ontospy(path)
 
     g = DiGraph(IRI=iri)

@@ -5,15 +5,17 @@ onto2nx is a package for parsing ontologies in the OWL and OBO format into Netwo
 for easy traversal of entity hierarchies
 """
 
-from . import (aba, owl_rdf, owl_xml)
+from . import aba, api, owl_rdf, owl_xml
 from .aba import *
+from .api import *
 from .owl_rdf import *
 from .owl_xml import *
 
 __all__ = (
     aba.__all__ +
     owl_rdf.__all__ +
-    owl_xml.__all__
+    owl_xml.__all__ +
+    api.__all__
 )
 
 __version__ = '0.1.1-dev'

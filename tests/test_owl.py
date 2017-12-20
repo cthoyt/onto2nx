@@ -5,25 +5,9 @@ from __future__ import unicode_literals
 import unittest
 from pathlib import Path
 
-from onto2nx import OWLParser, parse_owl_rdf, parse_owl_xml
+from onto2nx import OWLParser, parse_owl, parse_owl_xml
 from tests.contants import pizza_iri, test_owl_ado, test_owl_pizza, test_owl_wine
 from tests.mocks import mock_parse_owl_rdf, mock_parse_owl_xml
-
-
-def parse_owl(url):
-    """Downloads and parses an OWL resource in OWL/XML or any format supported by onto2nx/ontospy package.
-    Is a thin wrapper around :func:`parse_owl_pybel` and :func:`parse_owl_rdf`.
-
-    :param url: The URL to the OWL resource
-    :type url: str
-    :return: A directional graph representing the OWL document's hierarchy
-    :rtype: networkx.DiGraph
-    """
-    try:
-        return parse_owl_xml(url)
-    except:
-        return parse_owl_rdf(url)
-
 
 EXPECTED_PIZZA_NODES = {
     'Pizza',
@@ -199,6 +183,7 @@ ado_expected_nodes_subset = {
     'white',
     'ProcessualEntity'
 }
+
 ado_expected_edges_subset = {
     ('control_trials_study_arm', 'Study_arm'),
     ('copper', 'MaterialEntity'),
@@ -257,18 +242,12 @@ class TestParse(unittest.TestCase):
             self.assertIn(u, owl)
             self.assertIn(v, owl.edge[u])
 
-    def test_ado_local(self):
+    @mock_parse_owl_rdf
+    @mock_parse_owl_xml
+    def test_ado_local(self, mock1, mock2):
         ado_path = Path(test_owl_ado).as_uri()
         owl = parse_owl(ado_path)
 
-        self.assertLessEqual(ado_expected_nodes_subset, set(owl.nodes_iter()))
-        self.assertLessEqual(ado_expected_edges_subset, set(owl.edges_iter()))
-
-    @mock_parse_owl_rdf
-    @mock_parse_owl_xml
-    def test_ado(self, mock1, mock2):
-        ado_path = 'http://mock.com/ado.owl'
-        owl = parse_owl_xml(ado_path)
         self.assertLessEqual(ado_expected_nodes_subset, set(owl.nodes_iter()))
         self.assertLessEqual(ado_expected_edges_subset, set(owl.edges_iter()))
 
