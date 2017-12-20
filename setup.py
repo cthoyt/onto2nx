@@ -23,7 +23,7 @@ CLASSIFIERS = [
 ]
 INSTALL_REQUIRES = [
     'networkx==1.11',
-    'rdflib',
+    'rdflib==4.2.1',
     'rdflib-jsonld',
     'requests',
     'requests_file',

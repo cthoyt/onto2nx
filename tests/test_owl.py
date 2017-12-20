@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import unittest
 from pathlib import Path
 
-from onto2nx import OWLParser, parse_owl, parse_owl_xml
+from onto2nx import OWLParser, parse_owl
 from tests.contants import pizza_iri, test_owl_ado, test_owl_pizza, test_owl_wine
 from tests.mocks import mock_parse_owl_rdf, mock_parse_owl_xml
 
