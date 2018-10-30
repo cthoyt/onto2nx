@@ -28,4 +28,4 @@ __author__ = 'Charles Tapley Hoyt, Aliaksandr Masny'
 __email__ = 'charles.hoyt@scai.fraunhofer.de'
 
 __license__ = 'GPL 3.0 License'
-__copyright__ = 'Copyright (c) 2016 Charles Tapley Hoyt'
+__copyright__ = 'Copyright (c) 2016-2018 Charles Tapley Hoyt'
