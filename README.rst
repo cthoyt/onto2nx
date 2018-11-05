@@ -22,7 +22,7 @@ or from the latest code on `GitHub <https://github.com/cthoyt/onto2nx>`_ with:
 
     $ python3 -m pip install git+https://github.com/cthoyt/onto2nx.git
 
-.. |build| image:: https://travis-ci.org/cthoyt/onto2nx.svg?branch=develop
+.. |build| image:: https://travis-ci.org/cthoyt/onto2nx.svg?branch=master
     :target: https://travis-ci.org/cthoyt/onto2nx
     :alt: Build Status
 
