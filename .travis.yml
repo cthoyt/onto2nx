@@ -1,30 +1,47 @@
 sudo: false
 cache: pip
+
 language: python
 python:
-- 2.7
-- 3.6
-env:
-- TOXENV=py
+  - 3.6
+  - 2.7
+
+stages:
+  - lint
+  - docs
+  - test
+
+jobs:
+  include:
+    # lint stage
+    - stage: lint
+      env: TOXENV=manifest
+    - env: TOXENV=flake8
+    - env: TOXENV=pyroma
+    - env: TOXENV=xenon
+    - env: TOXENV=vulture
+    # docs stage
+    - stage: docs
+      env: TOXENV=doc8
+    - env: TOXENV=readme
+    - env: TOXENV=docs
+    # test stage
+    - stage: test
+      env: TOXENV=py
+
 matrix:
-    include:
-        - python: 3.6
-          env: TOXENV=docs
-        - python: 3.6
-          env: TOXENV=manifest
-        - python: 3.6
-          env: TOXENV=rst-lint
+  allow_failures:
+      - env: TOXENV=xenon
+      - env: TOXENV=vulture
+      - env: TOXENV=flake8
+
 install:
-- pip install tox
+  - sh -c 'if [ "$TOXENV" = "py" ]; then pip install tox codecov coverage; else pip install tox; fi'
+
 script:
-- tox
-deploy:
-  provider: pypi
-  user: cthoyt
-  on:
-    tags: true
-    distributions: sdist bdist_wheel
-    repo: cthoyt/onto2nx
-    branch: master
-  password:
-    secure: SBwVxz3IO5VFKmRWgo1vYynEzZuGsIeombThV2JlNttl9kICoNXlbvtIGhBDMmmieOZjre3DWuUtl4kLcg56qiDK4hE0tvcnvu4rIUxLghY9cjiYrJ+yzjHEsffhv5/SvS8ZmN4oNAzJZOLfFR1MhlX9XhYhNqpNGEBEIeihL5kP5aoOxhcOCXjEbxN+MVd8wKmqxxhWkcskaM+Su+J7OLl3FdjSOwb9HPFX+uB3bB8vtZdx2TdZppfI2SLLew3tgt0WROD8wDRTzehthtlFlHTXUgvQ/+6VtaNYFbEGP75SZBPbIdafgUR0ZSaBIEpP6r76JYGxd+lfeiF9avbiXU9EaPo+NVPSd1+7oi4fh4/1IgMd1j6lFvMOJJMhEQRxp/5Dd6nzpxieX8Phyvc7e/SHJydLJBsZrpPWhXh36SyQLBz2CWm6/bN8zOv8xQdgwFRZo4TmrxE8FHMJOn7EYjMLhornOVxTCudbfvYFWeOd1+sm3oVVB0DYfkLfSbjq8U7wHqeLsgKgbBBkPnliQpkW6hsFg2ogf8dMXW0WXlEZtBF7R6ZMCl4ljVyu00M8/hI23lDhxmGLHsBggERuDxuC+4Eb7Pf46mRN556ukTH3oEPaeP7ZDUTcXzdpKL2KQOn8HKs92zJt5hTf8fFaj0pIawPI5VSvU2tf8vcZhFs=
+  - tox
+after_success:
+  - sh -c 'if [ "$TOXENV" = "py" ]; then tox -e coverage-report; codecov; fi'
+
+notifications:
+  slack: pybel:n2KbWKBum3musnBg3L76gGwq
