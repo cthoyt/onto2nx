@@ -7,7 +7,7 @@ from .api import parse_owl
 from .owl_rdf import parse_owl_rdf
 from .owl_xml import OWLParser, parse_owl_xml
 
-__version__ = '0.1.1-dev'
+__version__ = '0.1.1'
 
 __title__ = 'onto2nx'
 __description__ = "A package for parsing ontologies in the OWL and OBO format into NetworkX graphs"
