@@ -50,8 +50,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Onto2nx'
-copyright = '2017, Charles Tapley Hoyt'
+project = 'onto2nx'
+copyright = '2016-2018, Charles Tapley Hoyt'
 author = 'Charles Tapley Hoyt'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -119,7 +119,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Onto2nxdoc'
+htmlhelp_basename = 'onto2nxdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -146,7 +146,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'Onto2nx.tex', 'Onto2nx Documentation',
+    (master_doc, 'onto2nx.tex', 'onto2nx Documentation',
      'Charles Tapley Hoyt', 'manual'),
 ]
 
@@ -156,7 +156,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'onto2nx', 'Onto2nx Documentation',
+    (master_doc, 'onto2nx', 'onto2nx Documentation',
      [author], 1)
 ]
 
@@ -167,8 +167,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'Onto2nx', 'Onto2nx Documentation',
-     author, 'Onto2nx', 'One line description of project.',
+    (master_doc, 'onto2nx', 'onto2nx Documentation',
+     author, 'onto2nx', 'One line description of project.',
      'Miscellaneous'),
 ]
 
