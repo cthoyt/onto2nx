@@ -33,6 +33,10 @@ INSTALL_REQUIRES = [
 EXTRAS_REQUIRE = {
     'nx2onto': [
         'owlready'
+    ],
+    'docs': [
+        'sphinx',
+        'sphinx-rtd-theme',
     ]
 }
 TESTS_REQUIRE = [
