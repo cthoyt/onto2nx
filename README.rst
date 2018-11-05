@@ -2,13 +2,25 @@ onto2nx |build| |coverage|
 ==========================
 Converts OWL ontologies and OBO to NetworkX Graphs.
 
-As of its first version, onto2nx currently relies on the code of a stripped-down version of OntoSpy. We'd
-like to thank `Michele Pasin <https://github.com/lambdamusic>`_ for all of his hard work and making
-it available under the GPL 3.0 license so we could use it too.
+As of its first version, ``onto2nx`` currently relies on the code of a stripped-down version of
+`OntoSpy <https://github.com/lambdamusic/Ontospy>`_. We would like to give a huge thank you to
+`Michele Pasin <https://github.com/lambdamusic>`_ for all of his hard work and making it available under the
+GPL 3.0 license so we could use it too.
 
 Installation |python_versions| |pypi_version| |pypi_license|
 ------------------------------------------------------------
+PyBEL can be installed easily from `PyPI <https://pypi.python.org/pypi/onto2nx>`_ with the following code in
+your favorite terminal:
 
+.. code-block:: sh
+
+    $ python3 -m pip install onto2nx
+
+or from the latest code on `GitHub <https://github.com/cthoyt/onto2nx>`_ with:
+
+.. code-block:: sh
+
+    $ python3 -m pip install git+https://github.com/cthoyt/onto2nx.git
 
 .. |build| image:: https://travis-ci.org/cthoyt/onto2nx.svg?branch=develop
     :target: https://travis-ci.org/cthoyt/onto2nx
