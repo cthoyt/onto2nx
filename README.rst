@@ -1,5 +1,5 @@
-onto2nx |build| |coverage|
-==========================
+onto2nx |build| |coverage| |zenodo|
+===================================
 Converts OWL ontologies and OBO to NetworkX Graphs.
 
 As of its first version, ``onto2nx`` currently relies on the code of a stripped-down version of
@@ -38,3 +38,6 @@ or from the latest code on `GitHub <https://github.com/cthoyt/onto2nx>`_ with:
 
 .. |pypi_license| image:: https://img.shields.io/pypi/l/onto2nx.svg
     :alt: GPL 3.0 License
+
+.. |zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1478027.svg
+   :target: https://doi.org/10.5281/zenodo.1478027
