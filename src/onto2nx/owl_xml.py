@@ -56,10 +56,14 @@ class OWLParser(nx.DiGraph):
         self.graph['IRI'] = self.root.attrib.get('ontologyIRI')
 
         for el in self.root.findall('./owl:Declaration/owl:Class', OWL_NAMESPACES):
-            self.add_node(self.get_iri(el.attrib), type="Class")
+            self.add_node(
+                self.get_iri(el.attrib),
+                type='Class', label=self.get_label(el.attrib))
 
         for el in self.root.findall('./owl:Declaration/owl:NamedIndividual', OWL_NAMESPACES):
-            self.add_node(self.get_iri(el.attrib), type="NamedIndividual")
+            self.add_node(
+                self.get_iri(el.attrib),
+                type='NamedIndividual', label=self.get_label(el.attrib))
 
         for el in self.root.findall('./owl:SubClassOf', OWL_NAMESPACES):
             if len(el) != 2:
@@ -107,3 +111,7 @@ class OWLParser(nx.DiGraph):
             return self.strip_iri(attribs[IRI])
         elif AIRI in attribs:
             return self.strip_airi(attribs[AIRI])
+
+    def get_label(self, attribs):
+        # TODO: implement this
+        return ''

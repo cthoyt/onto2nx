@@ -14,7 +14,7 @@ __all__ = [
 
 def parse_owl_rdf(iri):
     """Parses an OWL resource that's encoded in OWL/RDF into a NetworkX directional graph
-    
+
     :param str iri: The location of the OWL resource to be parsed by Ontospy
     :type iri: str
     :rtype: network.DiGraph
@@ -23,7 +23,7 @@ def parse_owl_rdf(iri):
     o = Ontospy(iri)
 
     for cls in o.classes:
-        g.add_node(cls.locale, type='Class')
+        g.add_node(cls.locale, type='Class', label=cls.bestLabel().strip('"'))
 
         for parent in cls.parents():
             g.add_edge(cls.locale, parent.locale, type='SubClassOf')
