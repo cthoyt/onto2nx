@@ -1,5 +1,13 @@
-onto2nx |build| |coverage| |zenodo|
-===================================
+This Project is No Longer Maintained
+====================================
+This project is not being maintained. Please see the following alternatives:
+
+- https://github.com/related-sciences/nxontology (Custom parsing of OWL into NetworkX graphs)
+- https://github.com/dhimmel/obonet/ (Custom parsing of OBO into NetworkX graphs)
+- https://github.com/althonos/pronto (General parsing of OBO + OWL)
+
+Legacy Information |build| |coverage| |zenodo|
+----------------------------------------------
 Converts OWL ontologies and OBO to NetworkX Graphs.
 
 As of its first version, ``onto2nx`` currently relies on the code of a stripped-down version of
@@ -8,7 +16,7 @@ As of its first version, ``onto2nx`` currently relies on the code of a stripped-
 GPL 3.0 license so we could use it too.
 
 Installation |python_versions| |pypi_version| |pypi_license|
-------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 PyBEL can be installed easily from `PyPI <https://pypi.python.org/pypi/onto2nx>`_ with the following code in
 your favorite terminal:
 
